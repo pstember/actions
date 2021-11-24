@@ -1,0 +1,25 @@
+name: "Snyk Golang (1.16)"
+description: "Check your Golang application for vulnerabilties using Snyk"
+author: "Philippe Stemberger"
+branding:
+  icon: "alert-triangle"
+  color: "yellow"
+inputs:
+  command:
+    description: "Which Snyk command to run, defaults to test"
+    default: test
+  args:
+    description: "Additional arguments to pass to Snyk"
+  json:
+    description: "Output a snyk.json file with results if running the test command"
+    default: false
+runs:
+  using: "docker"
+  image: "docker://snyk/snyk:golang-1.16"
+  env:
+    SNYK_INTEGRATION_NAME: GITHUB_ACTIONS
+    SNYK_INTEGRATION_VERSION: golang-1.16
+  args:
+  - snyk
+  - ${{ inputs.command }}
+  - ${{ inputs.args }} 
